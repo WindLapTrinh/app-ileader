@@ -31,11 +31,14 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      # Step 5: Deploy the application
+      # Step 5: Deploy the application to Zalo
       - name: Deploy to Zalo
-        env:
-          ZMP_TOKEN: ${{ secrets.ZMP_TOKEN}}  # Ensure you set this secret in your repo
-        run: npx zmp-developer-token deploy
+        run: |
+          # Login to Zalo (ensure you have the correct app ID, secret, and refresh token)
+          npx zmp-developer-token login <815485544505253554> <SC7C3EQocWcEMVUXrP2d> <ncqw4fkZU6J6RJOIdg9-PCLjCHE3xp4yY2C-6uwKD7MGCITzoAeB2yfc8HgJ_mmFlN4P7vZz80s1HGyjWFWQ0P9hJIEb-cK6lJ9f9gUz80wY7mCqavr01AeXKt7rwsvAt6b2MetmPrsiFsjglgf81BWgGIALiXOMoN05392xJncW9Gq9_u0qEC8i2oAUl3iWc3Oo0QUZBc-4R0PkggKaGQOk36-AkoL_XWK9QggCALwuHXXIv-K3OjjE75VUy5P1t5jwRDp-It_PLXnesUifSTieDLM6Yo9nfHGLSwIh65wxC1TRkVqxQeHVT7ZS-b5y-7fVMFN5TLBxHpX3zkqDQT1jE0VXsHS-krjO7B3gTJom8qeBeEvuU6ZwUaEQkNXW>
+          
+          # Deploy the application
+          npx zmp-developer-token deploy <815485544505253554>
 
       # Optional: Post-deployment tasks (e.g., notifications)
       - name: Notify Deployment Success
