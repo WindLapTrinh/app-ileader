@@ -21,15 +21,11 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
-
-    # Step 3: Change directory to the correct folder where package.json exists
-    - name: Change directory
-      run: cd app-ileader
-
-    # Step 4: Install dependencies
+        node-version: '16'
+        
+    # Step 3: Install dependencies
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
     # Step 5: Build the project
     - name: Build the project
