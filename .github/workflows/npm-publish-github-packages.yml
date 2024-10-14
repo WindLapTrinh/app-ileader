@@ -34,7 +34,7 @@ jobs:
       # Step 5: Deploy the application
       - name: Deploy to Zalo
         env:
-          ZMP_TOKEN: ${{ secrets.l8lKBqkDLtQyYzWlJenHTh-BtovJtHKfrDhD4oMD5qpUxSjHM8a9UD7hsKHRe3LDmUhQLsMwL6dqiDzGO-a6UkNZo298dJnZplh2J5MI2KRSpCWVLvmq9U_glNz5jqq-zig19qEjG6RGqzPiQeCrQlt3psGEXnTNWOB3RXhU2LkVs-PyAjnmPxojlNfBwMjisAEHPNRzH762ZifvASmzNAArmqKDlnDZgjxDLoU71a6syTLz1RawIxxQybrBXdvxmElyPMNkS3-Nw_89UEii9ldjt7b2fLvimyw1MdE_LdYStDnuQDyGNEIP_mbU-puSsg7XDdR_5oFQezyWTiCW3Vx2mpG5k008XU3t1IIY3G2Hnk4gQe9iFy8oksnAbrTo }}  # Ensure you set this secret in your repo
+          ZMP_TOKEN: ${{ secrets.ZMP_TOKEN}}  # Ensure you set this secret in your repo
         run: npx zmp-developer-token deploy
 
       # Optional: Post-deployment tasks (e.g., notifications)
