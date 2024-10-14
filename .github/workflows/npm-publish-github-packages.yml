@@ -1,45 +1,69 @@
-name: CI/CD for Zalo Application
+name: Zalo Mini App
+run-name: ${{ github.event_name == 'schedule' && '✨ Refresh token' || '🚀 Deploy' }}
+
+concurrency: zalo-mini-app
 
 on:
   push:
     branches:
       - main
+      - "feat/**"
   pull_request:
     branches:
       - main
+      - "feat/**"
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
-  build:
+  refresh_token:
+    if: ${{ github.event_name == 'schedule' }}
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
-
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 4: Build the project
-      - name: Build the project
-        run: npm run build
-
-      # Step 5: Deploy the application to Zalo
-      - name: Deploy to Zalo
+          node-version: 18.x
+          cache: "npm"
+      - run: npx zmp-developer-token login ${{ secrets.ZALO_APP_ID }} ${{ secrets.ZALO_APP_SECRET }} ${{ secrets.ZALO_REFRESH_TOKEN }} >> $GITHUB_ENV
+      - uses: hmanzur/actions-set-secret@v2.0.0
+        with:
+          name: "ZALO_ACCESS_TOKEN"
+          value: ${{ env.ncqw4fkZU6J6RJOIdg9-PCLjCHE3xp4yY2C-6uwKD7MGCITzoAeB2yfc8HgJ_mmFlN4P7vZz80s1HGyjWFWQ0P9hJIEb-cK6lJ9f9gUz80wY7mCqavr01AeXKt7rwsvAt6b2MetmPrsiFsjglgf81BWgGIALiXOMoN05392xJncW9Gq9_u0qEC8i2oAUl3iWc3Oo0QUZBc-4R0PkggKaGQOk36-AkoL_XWK9QggCALwuHXXIv-K3OjjE75VUy5P1t5jwRDp-It_PLXnesUifSTieDLM6Yo9nfHGLSwIh65wxC1TRkVqxQeHVT7ZS-b5y-7fVMFN5TLBxHpX3zkqDQT1jE0VXsHS-krjO7B3gTJom8qeBeEvuU6ZwUaEQkNXW }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+      - uses: hmanzur/actions-set-secret@v2.0.0
+        with:
+          name: "ZALO_REFRESH_TOKEN"
+          value: ${{ env.OE4nJ_x5DcHWuJrF-yGmP6FXEaxcaZ1YFEfYDF2fFq8UxL09nCfPSLkC8rgnyru0AAiCHkVYGXuVcJDovC8wMmIPO7FRkZq3E_juQE231ZKwqWXp-A5-7HxQCthy_cqNFDW3HFNwP3GkfGGUijHEPNxoHagzb0DZP-LOEvp3As05Z74l-gycOGlyJnF2bJ953Ev1QzEB8JG_wovTzyn9TH-z8YM6wYHm6CqZ1UAnMcujn04LiBD6Hd3I6ZkFY50GTVCkV8sCNYfjgnHVYF171LU8B2F4yta8DPSCKCpnUWTIXYTXogL972Y075VwrLGPDBOjQjdFK4KYY2CjsQ5sNmNQ9XNvcaD3SgiGFnx_tpPW }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+      - name: Report
         run: |
-          # Login to Zalo (ensure you have the correct app ID, secret, and refresh token)
-          npx zmp-developer-token login <815485544505253554> <SC7C3EQocWcEMVUXrP2d> <ncqw4fkZU6J6RJOIdg9-PCLjCHE3xp4yY2C-6uwKD7MGCITzoAeB2yfc8HgJ_mmFlN4P7vZz80s1HGyjWFWQ0P9hJIEb-cK6lJ9f9gUz80wY7mCqavr01AeXKt7rwsvAt6b2MetmPrsiFsjglgf81BWgGIALiXOMoN05392xJncW9Gq9_u0qEC8i2oAUl3iWc3Oo0QUZBc-4R0PkggKaGQOk36-AkoL_XWK9QggCALwuHXXIv-K3OjjE75VUy5P1t5jwRDp-It_PLXnesUifSTieDLM6Yo9nfHGLSwIh65wxC1TRkVqxQeHVT7ZS-b5y-7fVMFN5TLBxHpX3zkqDQT1jE0VXsHS-krjO7B3gTJom8qeBeEvuU6ZwUaEQkNXW>
-          
-          # Deploy the application
-          npx zmp-developer-token deploy <815485544505253554>
+          echo "### Token renewal success! :sparkles:" >> $GITHUB_STEP_SUMMARY
 
-      # Optional: Post-deployment tasks (e.g., notifications)
-      - name: Notify Deployment Success
-        run: echo "Deployment to Zalo completed successfully!"
+  deploy:
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        mini-app-id: ["815485544505253554"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: "npm"
+      - run: npm install
+      - run: npm install -g zmp-cli
+      - run: npx zmp-developer-token deploy ${{ matrix.mini-app-id }}
+        env:
+          NEW_ACCESS_TOKEN: ${{ secrets.ZALO_ACCESS_TOKEN }}
+      - name: Report
+        run: |
+          echo "### Deployment success! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
+          echo "View your deployment result: [Version Management](https://mini.zalo.me/miniapp/${{ matrix.mini-app-id }}/versions)" >> $GITHUB_STEP_SUMMARY
