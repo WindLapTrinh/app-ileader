@@ -29,4 +29,4 @@ jobs:
 
     # Step 5: Build the project
     - name: Build the project
-      run: zmp start 
+      run: npm run build
