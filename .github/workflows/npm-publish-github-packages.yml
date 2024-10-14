@@ -13,28 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Bước 1: Checkout mã nguồn
+    # Step 1: Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Bước 2: Thiết lập môi trường Node.js
+    # Step 2: Set up Node.js
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
 
-    # Bước 3: Cài đặt các dependencies
+    # Step 3: Change directory to the correct folder where package.json exists
+    - name: Change directory
+      run: cd app-ileader
+
+    # Step 4: Install dependencies
     - name: Install dependencies
       run: npm install
 
-    # Bước 4: Build dự án
+    # Step 5: Build the project
     - name: Build the project
       run: npm run build
-
-    # (Tùy chọn) Bước 5: Deploy ứng dụng (Nếu cần)
-    #- name: Deploy to Zalo Mini App
-    #  run: npm run deploy
-
-    # (Tùy chọn) Bước 6: Chạy test nếu có
-    # - name: Run tests
-    #   run: npm test
