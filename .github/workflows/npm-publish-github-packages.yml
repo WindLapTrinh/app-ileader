@@ -21,14 +21,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install Dependencies
-        run: npm install
       - uses: actions/checkout@v4
+      - name: Validate package-lock.json existence
+        run: |
+          if [ ! -f package-lock.json ]; then
+          echo "Error: package-lock.json not found!";
+          exit 1;
+          fi
       - name: Use Node.js 18
         uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: "npm"
+      - run: npm install
       - run: npx zmp-developer-token login ${{ secrets.ZALO_APP_ID }} ${{ secrets.ZALO_APP_SECRET }} ${{ secrets.ZALO_REFRESH_TOKEN }} >> $GITHUB_ENV
       - uses: hmanzur/actions-set-secret@v2.0.0
         with:
