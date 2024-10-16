@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: '16'
           architecture: 'x64'
-      - run: npx zmp-developer-token login ${{ secrets.815485544505253554 }} ${{ secrets.ILEADER }} ${{ secrets.OE4nJ_x5DcHWuJrF-yGmP6FXEaxcaZ1YFEfYDF2fFq8UxL09nCfPSLkC8rgnyru0AAiCHkVYGXuVcJDovC8wMmIPO7FRkZq3E_juQE231ZKwqWXp-A5-7HxQCthy_cqNFDW3HFNwP3GkfGGUijHEPNxoHagzb0DZP-LOEvp3As05Z74l-gycOGlyJnF2bJ953Ev1QzEB8JG_wovTzyn9TH-z8YM6wYHm6CqZ1UAnMcujn04LiBD6Hd3I6ZkFY50GTVCkV8sCNYfjgnHVYF171LU8B2F4yta8DPSCKCpnUWTIXYTXogL972Y075VwrLGPDBOjQjdFK4KYY2CjsQ5sNmNQ9XNvcaD3SgiGFnx_tpPW }} >> $GITHUB_ENV
+      - run: npx zmp-developer-token login ${{ secrets.815485544505253554 }} ${{ secrets.ZALO_APP_SECRET }} ${{ secrets.OE4nJ_x5DcHWuJrF-yGmP6FXEaxcaZ1YFEfYDF2fFq8UxL09nCfPSLkC8rgnyru0AAiCHkVYGXuVcJDovC8wMmIPO7FRkZq3E_juQE231ZKwqWXp-A5-7HxQCthy_cqNFDW3HFNwP3GkfGGUijHEPNxoHagzb0DZP-LOEvp3As05Z74l-gycOGlyJnF2bJ953Ev1QzEB8JG_wovTzyn9TH-z8YM6wYHm6CqZ1UAnMcujn04LiBD6Hd3I6ZkFY50GTVCkV8sCNYfjgnHVYF171LU8B2F4yta8DPSCKCpnUWTIXYTXogL972Y075VwrLGPDBOjQjdFK4KYY2CjsQ5sNmNQ9XNvcaD3SgiGFnx_tpPW }} >> $GITHUB_ENV
       - uses: hmanzur/actions-set-secret@v2.0.0
         with:
           name: "ZALO_ACCESS_TOKEN"
