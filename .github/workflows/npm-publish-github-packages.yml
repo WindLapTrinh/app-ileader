@@ -27,8 +27,6 @@ jobs:
         with:
           node-version: '18'
           architecture: 'x64'
-      - run: npm ci
-      - run: npm test
       - run: npx zmp-developer-token login ${{ secrets.ZALO_APP_ID }} ${{ secrets.ZALO_APP_SECRET }} ${{ secrets.ZALO_REFRESH_TOKEN }} >> $GITHUB_ENV
       - uses: hmanzur/actions-set-secret@v2.0.0
         with:
@@ -50,7 +48,7 @@ jobs:
 
     strategy:
       matrix:
-        mini-app-id: ["194839900003483517"]
+        mini-app-id: ["815485544505253554"]
 
     steps:
       - uses: actions/checkout@v3
@@ -59,8 +57,6 @@ jobs:
         with:
           node-version: '18'
           architecture: 'x64'
-      - run: npm ci
-      - run: npm test
       - run: npm install -g zmp-cli
       - run: npx zmp-developer-token deploy ${{ matrix.mini-app-id }}
         env:
