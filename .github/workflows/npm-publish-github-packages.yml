@@ -57,6 +57,7 @@ jobs:
         with:
           node-version: 18
           architecture: 'x64'
+      - run: npm install
       - run: npm install -g zmp-cli
       - run: npx zmp-developer-token deploy ${{ matrix.mini-app-id }}
         env:
