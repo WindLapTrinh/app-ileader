@@ -21,12 +21,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js 18
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          architecture: 'x64'
+          node-version: 18.x
+          cache: "npm"
       - run: npx zmp-developer-token login ${{ secrets.ZALO_APP_ID }} ${{ secrets.ZALO_APP_SECRET }} ${{ secrets.ZALO_REFRESH_TOKEN }} >> $GITHUB_ENV
       - uses: hmanzur/actions-set-secret@v2.0.0
         with:
@@ -48,15 +48,15 @@ jobs:
 
     strategy:
       matrix:
-        mini-app-id: ["815485544505253554"]
+        mini-app-id: ["194839900003483517"]
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
-          architecture: 'x64'
+          node-version: 18.x
+          cache: "npm"
       - run: npm install
       - run: npm install -g zmp-cli
       - run: npx zmp-developer-token deploy ${{ matrix.mini-app-id }}
