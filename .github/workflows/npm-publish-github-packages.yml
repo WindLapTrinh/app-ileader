@@ -31,12 +31,12 @@ jobs:
       - uses: hmanzur/actions-set-secret@v2.0.0
         with:
           name: "ZALO_ACCESS_TOKEN"
-          value: ${{ env.ncqw4fkZU6J6RJOIdg9-PCLjCHE3xp4yY2C-6uwKD7MGCITzoAeB2yfc8HgJ_mmFlN4P7vZz80s1HGyjWFWQ0P9hJIEb-cK6lJ9f9gUz80wY7mCqavr01AeXKt7rwsvAt6b2MetmPrsiFsjglgf81BWgGIALiXOMoN05392xJncW9Gq9_u0qEC8i2oAUl3iWc3Oo0QUZBc-4R0PkggKaGQOk36-AkoL_XWK9QggCALwuHXXIv-K3OjjE75VUy5P1t5jwRDp-It_PLXnesUifSTieDLM6Yo9nfHGLSwIh65wxC1TRkVqxQeHVT7ZS-b5y-7fVMFN5TLBxHpX3zkqDQT1jE0VXsHS-krjO7B3gTJom8qeBeEvuU6ZwUaEQkNXW }}
+          value: ${{ env.NEW_ACCESS_TOKEN }}
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
       - uses: hmanzur/actions-set-secret@v2.0.0
         with:
           name: "ZALO_REFRESH_TOKEN"
-          value: ${{ env.OE4nJ_x5DcHWuJrF-yGmP6FXEaxcaZ1YFEfYDF2fFq8UxL09nCfPSLkC8rgnyru0AAiCHkVYGXuVcJDovC8wMmIPO7FRkZq3E_juQE231ZKwqWXp-A5-7HxQCthy_cqNFDW3HFNwP3GkfGGUijHEPNxoHagzb0DZP-LOEvp3As05Z74l-gycOGlyJnF2bJ953Ev1QzEB8JG_wovTzyn9TH-z8YM6wYHm6CqZ1UAnMcujn04LiBD6Hd3I6ZkFY50GTVCkV8sCNYfjgnHVYF171LU8B2F4yta8DPSCKCpnUWTIXYTXogL972Y075VwrLGPDBOjQjdFK4KYY2CjsQ5sNmNQ9XNvcaD3SgiGFnx_tpPW }}
+          value: ${{ env.NEW_REFRESH_TOKEN }}
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
       - name: Report
         run: |
